@@ -26,21 +26,103 @@ public class Main {
 		ventasMap=venta.obtenerVentasMap();
 		articulosMap=articulo.obtenerArticulosMap();
 		
-		articulosMap.forEach((k,v)->{
+		/*articulosMap.forEach((k,v)->{
 			System.out.println(v.getCodarti());
 			});
 		
 		ventasMap.forEach((k,v)->{
 			System.out.println(v.getCodarti().getCodarti());
-			});
+			});*/
 		
+		
+		int totalSumaUnive=0;
+		float sumaImporte=0;
+		System.out.println("CODARTI – DENOMINACION – STOCK – PVP – SUMA_UNIVEN – SUMA_IMPORTE – NUM_VENTAS");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
 		for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
-				art.getValue().obtenerCompras(ventasMap);
-			}
-		
-		
+			totalSumaUnive+=art.getValue().obtenerCompras(ventasMap);
+			sumaImporte+=art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp();
+			
+			System.out.println(art.getValue().toString()+" - "+art.getValue().obtenerCompras(ventasMap)+" - "+art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp()+" - "+art.getValue().obtenerCompras(ventasMap));
+		}
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("TOTAL SUMA_UNIVEN: "+totalSumaUnive);
+		System.out.println("TOTAL SUMA_IMPORTE: "+sumaImporte);
+		System.out.println("TOTAL NUM_VENTAS: "+totalSumaUnive);
 		//*************************************************************/
 		
+		
+		//EJERCICIO 2
+				System.out.println("\n\n\n****************************************");
+				System.out.println("EJERCICIO 2");
+				System.out.println("****************************************");
+				
+				ventasMap=venta.obtenerVentasMap();
+				articulosMap=articulo.obtenerArticulosMap();
+				
+				
+				
+				System.out.println("CODVENTA – CODARTI – DENOMINACION – NUMCLI – NOMBRE – FECHA – UNIVEN – IMPORTE");
+				
+				for (Entry<Integer, Ventas> v : ventasMap.entrySet()) {
+					System.out.println(v.getValue().getCodventa()+" - "+
+				v.getValue().getCodarti().getCodarti()+" - "+
+				v.getValue().getCodarti().getDenom()+" - "+
+				v.getValue().getNumcli().getNumcli()+" - "+
+				v.getValue().getNumcli().getNombre()+" - "+
+				v.getValue().getFecha()+" - "+
+				v.getValue().getCodarti().obtenerComprasId(ventasMap, v.getKey())+" - "+
+				v.getValue().getCodarti().obtenerComprasId(ventasMap, v.getKey())*v.getValue().getCodarti().getPvp());
+					};
+				//*************************************************************/
+					
+				//EJERCICIO 3
+				System.out.println("\n\n\n****************************************");
+				System.out.println("EJERCICIO 3");
+				System.out.println("****************************************");
+					
+				ventasMap=venta.obtenerVentasMap();
+				articulosMap=articulo.obtenerArticulosMap();
+					
+					
+					
+				totalSumaUnive=0;
+				sumaImporte=0;
+				System.out.println("CODARTI – DENOMINACION – STOCK – PVP – SUMA_UNIVEN – SUMA_IMPORTE – NUM_VENTAS");
+				System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+				for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+					totalSumaUnive+=art.getValue().obtenerCompras(ventasMap);
+					sumaImporte+=art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp();
+					
+					System.out.println(art.getValue().toString()+" - "+art.getValue().obtenerCompras(ventasMap)+" - "+art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp()+" - "+art.getValue().obtenerCompras(ventasMap));
+				}
+				System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+				System.out.println("TOTAL SUMA_UNIVEN: "+totalSumaUnive);
+				System.out.println("TOTAL SUMA_IMPORTE: "+sumaImporte);
+				System.out.println("TOTAL NUM_VENTAS: "+totalSumaUnive);
+					//*************************************************************/
+		
+				
+			//EJERCICIO 3
+			System.out.println("\n\n\n****************************************");
+			System.out.println("EJERCICIO 4");
+			System.out.println("****************************************");
+					
+			ventasMap=venta.obtenerVentasMap();
+			articulosMap=articulo.obtenerArticulosMap();
+			clientesMap=cliente.obtenerClientesMap();
+					
+			System.out.println("NUMCLI – NOMBRE – POBLACIÓN – TOTAL_IMPORTE – NUM_VENTAS");
+			System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+			for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+				System.out.println(c.getValue().getNumcli()+" - "+
+			c.getValue().getNombre()+" - "+
+			c.getValue().getPobla()+" - "+
+			c.getValue().obtenerTotalImporte(ventasMap)+" - "+
+			c.getValue().obtenerNVentas(ventasMap)
+			);
+				};
+					//*************************************************************/		
 		//iniciarBBDD();
 		
 		//articulo.insertarPorDefecto();

@@ -2,6 +2,7 @@ package ie42;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -93,6 +94,25 @@ public class Clientes {
 				finally{
 					bd.close();
 				}
+	}
+	public float obtenerTotalImporte(HashMap<Integer,Ventas> ventas) {
+		float total=0;
+		for (Entry<Integer, Ventas> v : ventas.entrySet()) {
+			if(v.getValue().getNumcli().getNumcli()==this.numcli) {
+				total+=v.getValue().getCodarti().getPvp();
+			}
+		}
+		return total;
+	}
+	
+	public int obtenerNVentas(HashMap<Integer,Ventas> ventas) {
+		int total=0;
+		for (Entry<Integer, Ventas> v : ventas.entrySet()) {
+			if(v.getValue().getNumcli().getNumcli()==this.numcli) {
+				total++;
+			}
+		}
+		return total;
 	}
 	
 	public HashMap<Integer,Clientes> obtenerClientesMap(){

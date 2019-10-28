@@ -67,15 +67,26 @@ public class Articulos {
 		compras = compras;
 	}
 	
-	public void obtenerCompras(HashMap<Integer,Ventas> ventas) {
+	public int obtenerCompras(HashMap<Integer,Ventas> ventas) {
 		compras=new ArrayList<Ventas>();
 		ventas.forEach((k,v)->{
 			if(v.getCodarti().getCodarti()==this.getCodarti()) {
 				compras.add(v);
 				}
 			});
-		System.out.println("El articulo "+denom+" se ha comprado "+compras.size()+" veces");
-				;
+		//System.out.println("El articulo "+denom+" se ha comprado "+compras.size()+" veces");
+		return compras.size();
+	}
+	
+	public int obtenerComprasId(HashMap<Integer,Ventas> ventas, int idVenta) {
+		compras=new ArrayList<Ventas>();
+		ventas.forEach((k,v)->{
+			if(v.getCodarti().getCodarti()==this.getCodarti() && v.getCodventa()==idVenta) {
+				compras.add(v);
+				}
+			});
+		//System.out.println("El articulo "+denom+" se ha comprado "+compras.size()+" veces");
+		return compras.size();
 	}
 	
 	public void insertarArticulo(Articulos articulo) {
