@@ -120,7 +120,7 @@ public class Ventas {
 		ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
 				"articulos.db4o");
 		try{
-			ObjectSet res=bd.queryByExample(new Articulos(0, null, 0, 0));
+			ObjectSet res=bd.queryByExample(new Ventas(0, null, null, 0, null));
 			while(res.hasNext()){
 				venta=(Ventas)res.next();
 				ventas.put(venta.getCodventa(),venta);
@@ -151,6 +151,7 @@ public class Ventas {
 			
 		return ventas;
 	}
+
 	
 	@Override
 	public String toString() {

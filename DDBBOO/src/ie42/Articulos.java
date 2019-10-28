@@ -15,7 +15,7 @@ public class Articulos {
 	private String denom;
 	private int stock;
 	private float pvp;
-	private ArrayList<Ventas> Compras;
+	private ArrayList<Ventas> compras;
 	
 	public Articulos() {}
 	
@@ -60,11 +60,22 @@ public class Articulos {
 	}
 
 	public ArrayList<Ventas> getCompras() {
-		return Compras;
+		return compras;
 	}
 
 	public void setCompras(ArrayList<Ventas> compras) {
-		Compras = compras;
+		compras = compras;
+	}
+	
+	public void obtenerCompras(HashMap<Integer,Ventas> ventas) {
+		compras=new ArrayList<Ventas>();
+		ventas.forEach((k,v)->{
+			if(v.getCodarti().getCodarti()==this.getCodarti()) {
+				compras.add(v);
+				}
+			});
+		System.out.println("El articulo "+denom+" se ha comprado "+compras.size()+" veces");
+				;
 	}
 	
 	public void insertarArticulo(Articulos articulo) {

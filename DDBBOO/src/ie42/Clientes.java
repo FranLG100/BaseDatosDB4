@@ -102,7 +102,7 @@ public class Clientes {
 		ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
 				"articulos.db4o");
 		try{
-			ObjectSet res=bd.queryByExample(new Articulos(0, null, 0, 0));
+			ObjectSet res=bd.queryByExample(new Clientes(0, null, null));
 			while(res.hasNext()){
 				cliente=(Clientes)res.next();
 				clientes.put(cliente.getNumcli(),cliente);

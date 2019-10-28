@@ -2,6 +2,7 @@ package ie42;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Main {
 
@@ -13,9 +14,32 @@ public class Main {
 		Ventas venta=new Ventas();
 		ArrayList<Articulos> articulos=new ArrayList<Articulos>();
 		HashMap<Integer,Articulos> articulosMap=new HashMap<Integer,Articulos>();
+		HashMap<Integer,Clientes> clientesMap=new HashMap<Integer,Clientes>();
+		HashMap<Integer,Ventas> ventasMap=new HashMap<Integer,Ventas>();
 		ArrayList<Clientes> clientes=new ArrayList<Clientes>();
 		ArrayList<Ventas> ventas=new ArrayList<Ventas>();
 		
+		//EJERCICIO 1
+		System.out.println("EJERCICIO 1");
+		System.out.println("****************************************");
+		
+		ventasMap=venta.obtenerVentasMap();
+		articulosMap=articulo.obtenerArticulosMap();
+		
+		articulosMap.forEach((k,v)->{
+			System.out.println(v.getCodarti());
+			});
+		
+		ventasMap.forEach((k,v)->{
+			System.out.println(v.getCodarti().getCodarti());
+			});
+		
+		for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+				art.getValue().obtenerCompras(ventasMap);
+			}
+		
+		
+		//*************************************************************/
 		
 		//iniciarBBDD();
 		
@@ -23,11 +47,26 @@ public class Main {
 		//cliente.insertarPorDefecto();
 		//venta.insertarPorDefecto();
 		
-		articulosMap=articulo.obtenerArticulosMap();
+		/*articulosMap=articulo.obtenerArticulosMap();
+		clientesMap=cliente.obtenerClientesMap();
+		ventasMap=venta.obtenerVentasMap();
+		
 		
 		articulosMap.forEach((k,v)->{
 			System.out.println(v);
 			});
+		
+		System.out.println(("--------------"));
+		
+		clientesMap.forEach((k,v)->{
+			System.out.println(v);
+			});
+		
+		System.out.println(("--------------"));
+		
+		ventasMap.forEach((k,v)->{
+			System.out.println(v);
+			});*/
 		
 		/*clientes = cliente.obtenerClientes();
 
