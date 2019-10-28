@@ -1,6 +1,8 @@
 package ie42;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -103,7 +105,7 @@ public class Main {
 					//*************************************************************/
 		
 				
-			//EJERCICIO 3
+			//EJERCICIO 4
 			System.out.println("\n\n\n****************************************");
 			System.out.println("EJERCICIO 4");
 			System.out.println("****************************************");
@@ -122,7 +124,76 @@ public class Main {
 			c.getValue().obtenerNVentas(ventasMap)
 			);
 				};
-					//*************************************************************/		
+					//*************************************************************/	
+				
+			//EJERCICIO 5
+			System.out.println("\n\n\n****************************************");
+			System.out.println("EJERCICIO 5");
+			System.out.println("****************************************");
+					
+			ventasMap=venta.obtenerVentasMap();
+			articulosMap=articulo.obtenerArticulosMap();
+			clientesMap=cliente.obtenerClientesMap();
+			//articulos=articulo.obtenerArticulos();
+			//Collections.sort(articulos, Comparator.comparing(Articulos::getPvp));
+			
+			
+			
+			System.out.println("ARTICULO MAS VENDIDO: ");
+			int masComprado=0;
+			for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+				if(art.getValue().obtenerCompras(ventasMap)>masComprado)
+					masComprado=art.getValue().obtenerCompras(ventasMap);
+			}
+			for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+				if(art.getValue().obtenerCompras(ventasMap)==masComprado)
+					System.out.println(art.getValue().getCodarti()+" - "+art.getValue().getDenom()+"    VECES VENDIDO: "+masComprado);
+			}
+			
+			
+			System.out.println("\n\nMEDIA IMPORTE POR ARTICULOS: ");
+			int mediaPorVenta=0;
+			for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+				//Como todas las ventas son unitarias, no tengo ningún método que saque n de productos por venta.
+				//Por eso, lo normal es que la media que mueva es su precio.
+				if(art.getValue().obtenerCompras(ventasMap)>0)
+				System.out.println(art.getValue().getCodarti()+" - "+art.getValue().getDenom()+"    Vendido en: "+
+				art.getValue().obtenerCompras(ventasMap)+" compras, moviendo una media de "+
+				(art.getValue().getPvp()*art.getValue().obtenerCompras(ventasMap))/art.getValue().obtenerCompras(ventasMap)+" por venta");
+			}
+			
+			
+			System.out.println("\n\nCLIENTE QUE MAS HA GASTADO: ");
+			float maxGasto=0;
+			for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+				if(c.getValue().obtenerTotalImporte(ventasMap)>maxGasto) {
+					maxGasto=c.getValue().obtenerTotalImporte(ventasMap);
+				}
+			}
+			
+			for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+				if(c.getValue().obtenerTotalImporte(ventasMap)==maxGasto) {
+					System.out.println(c.getValue().getNumcli()+"-"+c.getValue().getNombre()+"   Gasto: "+c.getValue().obtenerTotalImporte(ventasMap));
+				}
+			}
+			
+			
+			System.out.println("\n\nCLIENTE CON MAS VENTAS: ");
+			int maxVentas=0;
+			for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+				if(c.getValue().obtenerNVentas(ventasMap)>maxVentas) {
+					maxVentas=c.getValue().obtenerNVentas(ventasMap);
+				}
+			}
+			
+			for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+				if(c.getValue().obtenerNVentas(ventasMap)==maxVentas) {
+					System.out.println(c.getValue().getNumcli()+"-"+c.getValue().getNombre()+"   N de ventas: "+c.getValue().obtenerNVentas(ventasMap));
+				}
+			}
+			
+		
+						//*************************************************************/
 		//iniciarBBDD();
 		
 		//articulo.insertarPorDefecto();
