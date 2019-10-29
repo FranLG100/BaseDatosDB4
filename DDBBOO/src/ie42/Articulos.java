@@ -2,6 +2,7 @@ package ie42;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -205,6 +206,52 @@ public class Articulos {
 	@Override
 	public String toString() {
 		return codarti+" - "+denom+" - "+stock+" - "+pvp;
+	}
+	
+	public void obtenerDatosArticulos(HashMap<Integer,Ventas> ventasMap, HashMap<Integer,Articulos> articulosMap ) {
+		int totalSumaUnive=0;
+		float sumaImporte=0;
+		System.out.println("CODARTI – DENOMINACION – STOCK – PVP – SUMA_UNIVEN – SUMA_IMPORTE – NUM_VENTAS");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+			totalSumaUnive+=art.getValue().obtenerCompras(ventasMap);
+			sumaImporte+=art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp();
+			
+			System.out.println(art.getValue().toString()+" - "+
+			art.getValue().obtenerCompras(ventasMap)+" - "+
+			art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp()+" - "+
+			art.getValue().obtenerCompras(ventasMap));
+		}
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("TOTAL SUMA_UNIVEN: "+totalSumaUnive);
+		System.out.println("TOTAL SUMA_IMPORTE: "+sumaImporte);
+		System.out.println("TOTAL NUM_VENTAS: "+totalSumaUnive);
+	}
+	
+	public void articuloMasVendido(HashMap<Integer,Ventas> ventasMap, HashMap<Integer,Articulos> articulosMap) {
+		System.out.println("ARTICULO MAS VENDIDO: ");
+		int masComprado=0;
+		for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+			if(art.getValue().obtenerCompras(ventasMap)>masComprado)
+				masComprado=art.getValue().obtenerCompras(ventasMap);
+		}
+		for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+			if(art.getValue().obtenerCompras(ventasMap)==masComprado)
+				System.out.println(art.getValue().getCodarti()+" - "+art.getValue().getDenom()+"    VECES VENDIDO: "+masComprado);
+		}
+	}
+	
+	public void mediaPorArticulo(HashMap<Integer,Ventas> ventasMap, HashMap<Integer,Articulos> articulosMap) {
+		System.out.println("\n\nMEDIA IMPORTE POR ARTICULOS: ");
+		int mediaPorVenta=0;
+		for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
+			//Como todas las ventas son unitarias, no tengo ningún método que saque n de productos por venta.
+			//Por eso, lo normal es que la media que mueva es su precio.
+			if(art.getValue().obtenerCompras(ventasMap)>0)
+			System.out.println(art.getValue().getCodarti()+" - "+art.getValue().getDenom()+"    Vendido en: "+
+			art.getValue().obtenerCompras(ventasMap)+" compras, moviendo una media de "+
+			(art.getValue().getPvp()*art.getValue().obtenerCompras(ventasMap))/art.getValue().obtenerCompras(ventasMap)+" por venta");
+		}
 	}
 	
 }

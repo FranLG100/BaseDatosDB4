@@ -2,6 +2,7 @@ package ie42;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -156,6 +157,21 @@ public class Ventas {
 	@Override
 	public String toString() {
 		return codventa+" - "+codarti.getCodarti()+" - "+numcli.getNumcli()+" - "+univen+" - "+fecha;
+	}
+	
+	public void obtenerDatosVentas(HashMap<Integer,Ventas> ventasMap) {
+		System.out.println("CODVENTA – CODARTI – DENOMINACION – NUMCLI – NOMBRE – FECHA – UNIVEN – IMPORTE");
+		
+		for (Entry<Integer, Ventas> v : ventasMap.entrySet()) {
+			System.out.println(v.getValue().getCodventa()+" - "+
+		v.getValue().getCodarti().getCodarti()+" - "+
+		v.getValue().getCodarti().getDenom()+" - "+
+		v.getValue().getNumcli().getNumcli()+" - "+
+		v.getValue().getNumcli().getNombre()+" - "+
+		v.getValue().getFecha()+" - "+
+		v.getValue().getCodarti().obtenerComprasId(ventasMap, v.getKey())+" - "+
+		v.getValue().getCodarti().obtenerComprasId(ventasMap, v.getKey())*v.getValue().getCodarti().getPvp());
+			};
 	}
 	
 }

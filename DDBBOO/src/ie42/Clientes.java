@@ -159,5 +159,50 @@ public class Clientes {
 		return numcli+" - "+nombre+" - "+pobla;
 	}
 	
+	public void obtenerDatosClientes(HashMap<Integer,Clientes> clientesMap, HashMap<Integer,Ventas> ventasMap) {
+		System.out.println("NUMCLI – NOMBRE – POBLACIÓN – TOTAL_IMPORTE – NUM_VENTAS");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+			System.out.println(c.getValue().getNumcli()+" - "+
+		c.getValue().getNombre()+" - "+
+		c.getValue().getPobla()+" - "+
+		c.getValue().obtenerTotalImporte(ventasMap)+" - "+
+		c.getValue().obtenerNVentas(ventasMap)
+		);
+			};
+	}
+	
+	public void clienteMasGaston(HashMap<Integer,Clientes> clientesMap, HashMap<Integer,Ventas> ventasMap) {
+		System.out.println("\n\nCLIENTE QUE MAS HA GASTADO: ");
+		float maxGasto=0;
+		for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+			if(c.getValue().obtenerTotalImporte(ventasMap)>maxGasto) {
+				maxGasto=c.getValue().obtenerTotalImporte(ventasMap);
+			}
+		}
+		
+		for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+			if(c.getValue().obtenerTotalImporte(ventasMap)==maxGasto) {
+				System.out.println(c.getValue().getNumcli()+"-"+c.getValue().getNombre()+"   Gasto: "+c.getValue().obtenerTotalImporte(ventasMap));
+			}
+		}
+	}
+	
+	public void clienteQueMasCompra(HashMap<Integer,Clientes> clientesMap, HashMap<Integer,Ventas> ventasMap) {
+		System.out.println("\n\nCLIENTE CON MAS VENTAS: ");
+		int maxVentas=0;
+		for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+			if(c.getValue().obtenerNVentas(ventasMap)>maxVentas) {
+				maxVentas=c.getValue().obtenerNVentas(ventasMap);
+			}
+		}
+		
+		for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
+			if(c.getValue().obtenerNVentas(ventasMap)==maxVentas) {
+				System.out.println(c.getValue().getNumcli()+"-"+c.getValue().getNombre()+"   N de ventas: "+c.getValue().obtenerNVentas(ventasMap));
+			}
+		}
+	}
+	
 	
 }
