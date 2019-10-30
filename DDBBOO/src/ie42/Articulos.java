@@ -79,6 +79,17 @@ public class Articulos {
 		return compras.size();
 	}
 	
+	public int obtenerNArticulosVendidos(HashMap<Integer,Ventas> ventas) {
+		int nArticulos=0;
+		for (Entry<Integer, Ventas> vent : ventas.entrySet()) {
+			if(vent.getValue().getCodarti().codarti==this.codarti) {
+				nArticulos+=vent.getValue().getUniven();
+				}
+			}
+		//System.out.println("El articulo "+denom+" se ha comprado "+compras.size()+" veces");
+		return nArticulos;
+	}
+	
 	public int obtenerComprasId(HashMap<Integer,Ventas> ventas, int idVenta) {
 		compras=new ArrayList<Ventas>();
 		ventas.forEach((k,v)->{
@@ -210,22 +221,24 @@ public class Articulos {
 	
 	public void obtenerDatosArticulos(HashMap<Integer,Ventas> ventasMap, HashMap<Integer,Articulos> articulosMap ) {
 		int totalSumaUnive=0;
+		int totalSumaVent=0;
 		float sumaImporte=0;
 		System.out.println("CODARTI – DENOMINACION – STOCK – PVP – SUMA_UNIVEN – SUMA_IMPORTE – NUM_VENTAS");
 		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
 		for (Entry<Integer, Articulos> art : articulosMap.entrySet()) {
-			totalSumaUnive+=art.getValue().obtenerCompras(ventasMap);
+			totalSumaUnive+=art.getValue().obtenerNArticulosVendidos(ventasMap);
+			totalSumaVent+=art.getValue().obtenerCompras(ventasMap);
 			sumaImporte+=art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp();
 			
 			System.out.println(art.getValue().toString()+" - "+
-			art.getValue().obtenerCompras(ventasMap)+" - "+
-			art.getValue().obtenerCompras(ventasMap)*art.getValue().getPvp()+" - "+
+			art.getValue().obtenerNArticulosVendidos(ventasMap)+" - "+
+			art.getValue().obtenerNArticulosVendidos(ventasMap)*art.getValue().getPvp()+" - "+
 			art.getValue().obtenerCompras(ventasMap));
 		}
 		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
 		System.out.println("TOTAL SUMA_UNIVEN: "+totalSumaUnive);
 		System.out.println("TOTAL SUMA_IMPORTE: "+sumaImporte);
-		System.out.println("TOTAL NUM_VENTAS: "+totalSumaUnive);
+		System.out.println("TOTAL NUM_VENTAS: "+totalSumaVent);
 	}
 	
 	public void articuloMasVendido(HashMap<Integer,Ventas> ventasMap, HashMap<Integer,Articulos> articulosMap) {
