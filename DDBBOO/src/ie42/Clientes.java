@@ -99,7 +99,7 @@ public class Clientes {
 		float total=0;
 		for (Entry<Integer, Ventas> v : ventas.entrySet()) {
 			if(v.getValue().getNumcli().getNumcli()==this.numcli) {
-				total+=v.getValue().getCodarti().getPvp();
+				total+=v.getValue().getUniven()*v.getValue().getCodarti().getPvp();
 			}
 		}
 		return total;
@@ -160,7 +160,7 @@ public class Clientes {
 	}
 	
 	public void obtenerDatosClientes(HashMap<Integer,Clientes> clientesMap, HashMap<Integer,Ventas> ventasMap) {
-		System.out.println("NUMCLI – NOMBRE – POBLACIÓN – TOTAL_IMPORTE – NUM_VENTAS");
+		System.out.println("NUMCLI ï¿½ NOMBRE ï¿½ POBLACIï¾“N ï¿½ TOTAL_IMPORTE ï¿½ NUM_VENTAS");
 		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
 		for (Entry<Integer, Clientes> c : clientesMap.entrySet()) {
 			System.out.println(c.getValue().getNumcli()+" - "+

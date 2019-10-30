@@ -91,14 +91,14 @@ public class Articulos {
 	}
 	
 	public int obtenerComprasId(HashMap<Integer,Ventas> ventas, int idVenta) {
-		compras=new ArrayList<Ventas>();
-		ventas.forEach((k,v)->{
-			if(v.getCodarti().getCodarti()==this.getCodarti() && v.getCodventa()==idVenta) {
-				compras.add(v);
+		int nArticulos=0;
+		for (Entry<Integer, Ventas> v : ventas.entrySet()) {
+			if(v.getValue().getCodarti().getCodarti()==this.getCodarti() && v.getValue().getCodventa()==idVenta) {
+				nArticulos=v.getValue().getUniven();
 				}
-			});
+			}
 		//System.out.println("El articulo "+denom+" se ha comprado "+compras.size()+" veces");
-		return compras.size();
+		return nArticulos;
 	}
 	
 	public void insertarArticulo(Articulos articulo) {
@@ -263,7 +263,7 @@ public class Articulos {
 			if(art.getValue().obtenerCompras(ventasMap)>0)
 			System.out.println(art.getValue().getCodarti()+" - "+art.getValue().getDenom()+"    Vendido en: "+
 			art.getValue().obtenerCompras(ventasMap)+" compras, moviendo una media de "+
-			(art.getValue().getPvp()*art.getValue().obtenerCompras(ventasMap))/art.getValue().obtenerCompras(ventasMap)+" por venta");
+			(art.getValue().getPvp()*art.getValue().obtenerNArticulosVendidos(ventasMap))/art.getValue().obtenerCompras(ventasMap)+" por venta");
 		}
 	}
 	
